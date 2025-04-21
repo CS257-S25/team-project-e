@@ -1,10 +1,10 @@
 '''
 This file is the command line interface for the project.
 '''
+import sys
 from ProductionCode.recipe_search import find_recipes
 from ProductionCode.random_recipe import get_random_recipes
 from ProductionCode.data import get_data
-import sys
 
 
 def main():
@@ -15,16 +15,16 @@ def main():
         usage_statement()
     command = sys.argv[1]
 
-    if command == "--search" or command == "--s":
+    if command in ("--search", "--s"):
         print("Searching for recipes...")
         search()
-    elif command == "--random" or command == "--r":
+    elif command in ("--random", "--r"):
         print("Getting random recipe...")
         if len(sys.argv) != 3:
             print("Invalid number of arguments for --random.")
             usage_statement()
         random_cl()
-    elif command == "--help" or command == "--h":
+    elif command in ("--help", "--h"):
         print("Displaying help...")
         help_cl()
     else:
@@ -34,7 +34,8 @@ def main():
 def usage_statement():
     ''' Display the usage statements for the command line interface. '''
     print("Usage: python cl.py --search --include_ingredients <ingredients> --omit_ingredients <ingredients>")
-    print("<ingredients> should be a comma-separated list of ingredients enclosed in quotes.")
+    print("<ingredients> should be a comma-separated list\
+           of ingredients enclosed in quotes.")
     print("or python cl.py --random <number>")
     print("or python cl.py --help")
     print("--search or --s: Search for a specific recipe.")
@@ -52,6 +53,7 @@ def search():
     return recipes
 
 def print_recipes(recipes):
+    ''' Print the recipes found line by line. '''
     for recipe in recipes:
         print(recipe)
 
@@ -82,7 +84,8 @@ def random_cl():
 
 def help_cl():
     ''' Display the help information for the command line interface. '''
-    print("Usage: python cl.py --search --include_ingredients <ingredients> --omit_ingredients <ingredients>")
+    print("Usage: python cl.py --search --include_ingredients \
+          <ingredients> --omit_ingredients <ingredients>")
     print("<ingredients> should be a comma-separated list of ingredients enclosed in quotes.")
     print("or python cl.py --random <number>")
     print("or python cl.py --help")
